@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <title>Pasta DB</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body id="app">
+    <aside class="aside">
+      <div class="aside-block">
+        <p class="title">Режим</p>
+        <ul class="aside-mode">
+          <li class="item">
+            <button id="mode-delete" class="danger">Удаления</button>
+          </li>
+          <!-- <li class="item">
+            <button id="mode-edit">Редактирование</button>
+          </li> -->
+          <li class="item">
+            <button id="mode-view">Просмотр</button>
+          </li>
+        </ul>
+        <fieldset class="aside-block">
+          <legend class="title">Поиск</legend>
+          <input type="search" id="search" placeholder="По тексту" />
+          <!-- <input type="search" placeholder="По тегам" />
+          <ul class="search-tags">
+            <li class="tag-item">тег</li>
+            <li class="tag-item">для примера</li>
+          </ul> -->
+        </fieldset>
+        <fieldset class="aside-block">
+          <legend class="title">Управление</legend>
+          <button id="lang_switch">Сменить Язык</button>
+          <!-- <button id="update_db">Обновить Данные</button> -->
+          <a href="/api/db" class="button" target="_blank">
+            Просмотреть Данные
+          </a>
+        </fieldset>
+      </div>
+      <!-- <fieldset class="aside-block">
+        <form class="form">
+          <legend class="title">Добавить пользователя</legend>
+          <input placeholder="Логин" type="text" />
+          <input placeholder="Пароль" type="password" />
+          <button type="submit">Добавить</button>
+        </form>
+      </fieldset> -->
+    </aside>
+
+    <main class="main">
+      <header class="header">
+        <div class="field field-text">
+          <textarea
+            id="pasta-text"
+            name="text"
+            rows="3"
+            placeholder="Здравствуйте, вы нас достали, до свидания!"
+          ></textarea>
+          <textarea
+            id="pasta-en-text"
+            name="text"
+            rows="3"
+            placeholder="Hello, we're sick of you, goodbye!"
+          ></textarea>
+          <button id="pasta-add">Добавить</button>
+        </div>
+
+        <div class="field field-side">
+          <textarea
+            id="pasta-description"
+            name="description"
+            rows="3"
+            placeholder="Описание сего непотребства"
+          ></textarea>
+
+          <div class="multi-select">
+            <ul class="select-container"></ul>
+            <div class="select-side">
+              <input
+                class="select-input"
+                type="text"
+                placeholder="Какой-то тег"
+              />
+              <button class="select-add">Добавить</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="container">
+        <div class="column"></div>
+        <div class="column"></div>
+        <div class="column"></div>
+      </div>
+    </main>
+  </body>
+  <script src="/main.js"></script>
+</html>
