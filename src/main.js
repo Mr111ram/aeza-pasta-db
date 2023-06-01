@@ -6,6 +6,7 @@ import State from './lib/state.js'
 import viewMode from './lib/mode'
 import modeDelete from './lib/delete'
 import search from './lib/search'
+import calculateRefund from './lib/calculate'
 
 const add = document.querySelector('#pasta-add')
 const text = document.querySelector('#pasta-text')
@@ -118,6 +119,7 @@ UI: {
   }
 
   viewMode('#app')
+  calculateRefund()
 }
 
 RequestsOnServer: {

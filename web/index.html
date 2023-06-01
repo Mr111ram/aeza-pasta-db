@@ -9,13 +9,16 @@
     <title>Pasta DB</title>
     <link rel="stylesheet" href="/style.css" />
   </head>
-  <body id="app">
+  <body id="app" data-mode="view">
     <aside class="aside">
       <div class="aside-block">
         <p class="title">Режим</p>
         <ul class="aside-mode">
           <li class="item">
             <button id="mode-delete" class="danger">Удаления</button>
+          </li>
+          <li class="item">
+            <button id="mode-refund" class="warn">Возврат</button>
           </li>
           <!-- <li class="item">
             <button id="mode-edit">Редактирование</button>
@@ -40,6 +43,26 @@
           <a href="/api/db" class="button" target="_blank">
             Просмотреть Данные
           </a>
+        </fieldset>
+        <fieldset id="refund-calulator" class="aside-block">
+          <legend class="title">Калькулятор Возврата</legend>
+          <input
+            id="refund-date"
+            type="text"
+            placeholder="Дата окончания"
+            value="4 июн. 2023 г., 20:05"
+          />
+          <input id="refund-price" type="text" placeholder="Цена" />
+          <select id="refund-pay-interval">
+            <option value="day">День</option>
+            <option value="month" selected>Месяц</option>
+            <option value="3-months">3 Месяца</option>
+            <option value="year">Год</option>
+          </select>
+          <span style="padding: 5px 10px; font-size: 14px">
+            Сумма:
+            <span id="refund-result" style="padding: 0 0.4em">---</span>
+          </span>
         </fieldset>
       </div>
       <!-- <fieldset class="aside-block">
@@ -91,7 +114,6 @@
           </div>
         </div>
       </header>
-
       <div class="container">
         <div class="column"></div>
         <div class="column"></div>

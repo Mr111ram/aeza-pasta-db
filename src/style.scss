@@ -30,6 +30,7 @@ textarea,
 button,
 select,
 option,
+select option,
 input,
 .input,
 .button {
@@ -75,6 +76,7 @@ a.button {
 button,
 input,
 select,
+option,
 textarea {
   &.danger {
     color: rgba(216, 75, 20, 0.87);
@@ -87,6 +89,15 @@ textarea {
   }
   &.success {
     color: rgba(154, 205, 50, 0.87);
+  }
+}
+
+select {
+  padding: 5px 6px;
+  margin: 0;
+  option {
+    background-color: buttonface !important;
+    font-size: 120%;
   }
 }
 

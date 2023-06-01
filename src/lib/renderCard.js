@@ -31,9 +31,13 @@ function makeCard({ description, text, enText, tags }, lang) {
 function langSwitcher(event) {
   memory.lang = memory.lang === 'ru' ? 'en' : 'ru'
   const { container, cardList, lang } = memory
+  const mode = document.querySelector('#app').dataset.mode
   const viewModeButton = document.querySelector('#mode-view')
+  const search = document.querySelector('#search')
 
-  viewModeButton.click()
+  if (mode === 'delete') {
+    viewModeButton.click()
+  }
 
   if (container && cardList && lang) {
     renderCard(container, cardList, lang)
@@ -47,7 +51,7 @@ function copyToBuffer() {
     const mode = getMode()
     let text
     let element = event.target
-    if (mode === 'view') {
+    if (mode === 'view' || mode === 'refund') {
       CrimeUglyAndShittyCodeDontTouchThis: {
         if (element.classList.contains('select-item')) {
           element = element.parentNode

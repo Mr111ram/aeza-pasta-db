@@ -2,6 +2,7 @@ let memSelector = ''
 const handlers = {
   view: [],
   delete: [],
+  refund: [],
 }
 
 export const getMode = (selector = memSelector || '#app') => {
@@ -24,6 +25,7 @@ export default function viewMode(selector = memSelector || '#app') {
   const modeSwitchers = {
     view: document.getElementById('mode-view'),
     delete: document.getElementById('mode-delete'),
+    refund: document.getElementById('mode-refund'),
   }
 
   function switchDisableButtons() {
