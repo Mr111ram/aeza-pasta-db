@@ -2,7 +2,7 @@ import Koa from 'koa'
 import { koaBody } from 'koa-body'
 import Static from 'koa-static'
 import helmet from 'koa-helmet'
-import session from 'koa-session'
+// import session from 'koa-session'
 import koaJson from 'koa-json'
 
 import router from './router.js'
@@ -22,14 +22,14 @@ export default async function server({ LOG, PORT }) {
 
   const app = new Koa()
 
-  app.keys = [process.env.SECRET]
+  // app.keys = [process.env.SECRET]
 
   LOG && app.use(loggerMiddleware)
 
   app
     .use(koaBody())
     .use(koaJson({ pretty: false, param: 'pretty' }))
-    .use(session(SESSION_CONFIG, app))
+    // .use(session(SESSION_CONFIG, app))
     .use(helmet.dnsPrefetchControl())
     .use(helmet.expectCt())
     .use(helmet.frameguard())

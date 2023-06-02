@@ -10,6 +10,7 @@ const root = resolve()
 const indexHtml = join(root, 'web', 'index.html')
 // const authHtml = join(root, 'web', 'auth.html')
 const dbJson = join(root, 'db', 'db.json')
+const logFile = join(root, 'error.log')
 
 router.get('/', async (ctx) => {
   const stream = createReadStream(indexHtml)
@@ -35,6 +36,14 @@ router.get('/api/db', async (ctx) => {
   ctx.response.set('content-type', 'application/json;charset=utf-8')
   ctx.type = 'json'
   ctx.body = JSON.parse(raw_db.toString())
+})
+
+router.get('/api/log', async (ctx) => {
+  const log = readFileSync(logFile)
+
+  ctx.response.set('content-type', 'text/html;charset=utf-8')
+  ctx.type = 'html'
+  ctx.body = `<code><pre>${log.toString()}</pre></code>`
 })
 
 router.post('/api/append_card', async (ctx) => {

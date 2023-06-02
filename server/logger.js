@@ -1,13 +1,17 @@
 import { createWriteStream } from 'node:fs'
 import { Console } from 'node:console'
 
+const PROD = true
+
 export const logger = new Console({
   stdout: process.stdout,
   stderr:
-    process.env.NODE_ENV === 'production'
+    process.env.NODE_ENV === 'production' || PROD
       ? createWriteStream('./error.log')
       : process.stderr,
 })
+
+console.log(process.env.NODE_ENV)
 
 export default async function loggerMiddleware(ctx, next) {
   const start = Date.now()
