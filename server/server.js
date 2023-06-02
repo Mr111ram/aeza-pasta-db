@@ -3,6 +3,7 @@ import { koaBody } from 'koa-body'
 import Static from 'koa-static'
 import helmet from 'koa-helmet'
 import session from 'koa-session'
+import koaJson from 'koa-json'
 
 import router from './router.js'
 import helpers from './helpers.js'
@@ -27,6 +28,7 @@ export default async function server({ LOG, PORT }) {
 
   app
     .use(koaBody())
+    .use(koaJson({ pretty: false, param: 'pretty' }))
     .use(session(SESSION_CONFIG, app))
     .use(helmet.dnsPrefetchControl())
     .use(helmet.expectCt())

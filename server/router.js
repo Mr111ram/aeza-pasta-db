@@ -30,11 +30,11 @@ router.get('/', async (ctx) => {
 // router.post('/auth/', authRoute)
 
 router.get('/api/db', async (ctx) => {
-  const stream = createReadStream(dbJson)
+  const raw_db = readFileSync(dbJson)
 
-  ctx.response.set('content-type', 'application/json')
+  ctx.response.set('content-type', 'application/json;charset=utf-8')
   ctx.type = 'json'
-  ctx.body = stream
+  ctx.body = JSON.parse(raw_db.toString())
 })
 
 router.post('/api/append_card', async (ctx) => {
