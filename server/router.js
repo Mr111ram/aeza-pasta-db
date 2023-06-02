@@ -2,11 +2,13 @@ import { createReadStream, readFileSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 
 import Router from 'koa-router'
+// import { authRoute } from './auth.js'
 
 const router = Router()
 
 const root = resolve()
 const indexHtml = join(root, 'web', 'index.html')
+// const authHtml = join(root, 'web', 'auth.html')
 const dbJson = join(root, 'db', 'db.json')
 
 router.get('/', async (ctx) => {
@@ -16,6 +18,16 @@ router.get('/', async (ctx) => {
   ctx.type = 'html'
   ctx.body = stream
 })
+
+// router.get('/auth/', async (ctx) => {
+//   const stream = createReadStream(authHtml)
+
+//   ctx.response.set('content-type', 'txt/html')
+//   ctx.type = 'html'
+//   ctx.body = stream
+// })
+
+// router.post('/auth/', authRoute)
 
 router.get('/api/db', async (ctx) => {
   const stream = createReadStream(dbJson)

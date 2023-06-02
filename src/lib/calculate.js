@@ -58,6 +58,7 @@ export default function calculateRefund() {
   }
 
   setModeHandler('view', () => {
+    document.getElementById('mode-delete').disabled = false
     refundCalc.style.display = 'none'
     search.disabled = false
     search.value = ''
@@ -65,14 +66,14 @@ export default function calculateRefund() {
       search.oninput({ target: search })
     }, 150)
   })
-  setModeHandler('delete', () => {
-    refundCalc.style.display = 'none'
-    search.disabled = false
-    search.value = ''
-    setTimeout(() => {
-      search.oninput({ target: search })
-    }, 150)
-  })
+  // setModeHandler('delete', () => {
+  //   refundCalc.style.display = 'none'
+  //   search.disabled = false
+  //   search.value = ''
+  //   setTimeout(() => {
+  //     search.oninput({ target: search })
+  //   }, 150)
+  // })
   setModeHandler('refund', () => {
     const cards = document.querySelectorAll('.container .card')
     refundCalc.style.display = 'block'
@@ -80,6 +81,7 @@ export default function calculateRefund() {
     search.disabled = true
     setTimeout(() => {
       search.oninput({ target: search })
+      document.getElementById('mode-delete').disabled = true
     }, 150)
   })
 

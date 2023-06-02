@@ -1,30 +1,49 @@
 import Koa from 'koa'
 import { koaBody } from 'koa-body'
 import Static from 'koa-static'
-
-import { join, resolve } from 'node:path'
-import { log } from 'node:console'
+import helmet from 'koa-helmet'
+import session from 'koa-session'
 
 import router from './router.js'
+import helpers from './helpers.js'
+import loggerMiddleware, { logger } from './logger.js'
+import { secureCatch } from './auth.js'
+
+const SESSION_CONFIG = {
+  key: 'session',
+  maxAge: 86400,
+  httpOnly: true,
+  signed: true,
+}
 
 export default async function server({ LOG, PORT }) {
-  const staticFiles = join(resolve(), 'web', 'assets')
+  const staticFiles = helpers.join('web', 'assets')
 
   const app = new Koa()
 
-  if (LOG) {
-    const { responseLogger, responseTime } = await import('./logger.js')
+  app.keys = [process.env.SECRET]
 
-    app.use(responseLogger).use(responseTime)
-  }
+  LOG && app.use(loggerMiddleware)
 
   app
     .use(koaBody())
+    .use(session(SESSION_CONFIG, app))
+    .use(helmet.dnsPrefetchControl())
+    .use(helmet.expectCt())
+    .use(helmet.frameguard())
+    .use(helmet.hidePoweredBy())
+    .use(helmet.hsts())
+    .use(helmet.ieNoOpen())
+    .use(helmet.noSniff())
+    .use(helmet.permittedCrossDomainPolicies())
+    .use(helmet.referrerPolicy())
+    .use(helmet.xssFilter())
+    .use(secureCatch)
     .use(Static(staticFiles))
     .use(router.routes())
     .use(router.allowedMethods())
 
   app.listen(PORT, () => {
-    log(`Server has start on ::${PORT}`)
+    logger.log(`Server has start on ::${PORT}`)
   })
 }

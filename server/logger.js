@@ -1,17 +1,25 @@
-import { log } from 'node:console'
+import { createWriteStream } from 'node:fs'
+import { Console } from 'node:console'
 
-export const responseLogger = async (ctx, next) => {
-  await next()
+export const logger = new Console({
+  stdout: process.stdout,
+  stderr:
+    process.env.NODE_ENV === 'production'
+      ? createWriteStream('./error.log')
+      : process.stderr,
+})
 
-  const responseTime = ctx.response.get('X-Response-Time')
-  log(`${ctx.method} ${ctx.url} - ${responseTime}`)
-}
-
-export const responseTime = async (ctx, next) => {
+export default async function loggerMiddleware(ctx, next) {
   const start = Date.now()
 
-  await next()
+  try {
+    await next()
+  } catch (error) {
+    logger.error(error)
+  }
 
   const difference = Date.now() - start
+
   ctx.set('X-Response-Time', `${difference}ms`)
+  logger.log(`${ctx.method} ${ctx.url} - ${difference}ms`)
 }
